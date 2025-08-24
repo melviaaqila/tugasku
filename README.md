@@ -1,7 +1,10 @@
 LARAVEL 12 STARTER KIT BOILERPLATE - INERTIA 2 VUE 3 SHADCN 2 TAILWIND 4
 PHP 8.4 MYSQL 8 NODE JS 22.16.0
 
-
+FITUR :
+- DASHBOARD ADMIN SPA
+- Manajemen User (role dan permission)
+  
 cara install :
 - git clone https://github.com/agusmaulanayusufnoor/laravel12-starterkit.git
 - cd laravel12-starterkit
