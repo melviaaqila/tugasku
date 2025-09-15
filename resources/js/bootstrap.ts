@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Pastikan axios mengirim cookie (penting untuk login session SPA)
 axios.defaults.withCredentials = true;
-
+axios.defaults.baseURL = location.origin;
 // Set header X-Requested-With untuk request AJAX
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
