@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\Master\KantorController;
-use App\Http\Controllers\Master\DivisiController;
-use App\Http\Controllers\Master\RoleController;
-use App\Http\Controllers\Master\UserController; // ✅ tambahin ini
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Master\RoleController;
+use App\Http\Controllers\Master\DivisiController;
+use App\Http\Controllers\Master\KantorController;
+use App\Http\Controllers\Master\PermissionController;
+use App\Http\Controllers\Master\UserController; // ✅ tambahin ini
 
 // Halaman utama
 // Route::get('/', function () {
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('kantor', KantorController::class)->middleware(['role:admin']);
     Route::resource('divisi', DivisiController::class)->middleware(['role:admin']);
     Route::resource('roles', RoleController::class)->middleware(['role:admin']);
+    Route::resource('permissions', PermissionController::class)->middleware(['role:admin']);
     Route::resource('users', UserController::class)->middleware(['role:admin']); // ✅ tambahin route user
 });
 
