@@ -3,8 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Divisi;
+use App\Models\Kantor;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\RoleSeeder;
+use Database\Seeders\PermissionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'nama_divisi' => 'IT'
         ]);
         // User::factory(10)->create();
-       
+
         User::factory()->create([
             'name' => 'Administrator',
             'email' => 'test@example.com',
@@ -32,9 +36,10 @@ class DatabaseSeeder extends Seeder
             'divisi_id' => 1,
         ]);
 
-         $this->call([
+        $this->call([
             PermissionSeeder::class,
         ]);
 
+        $this->call(RoleSeeder::class);
     }
 }
