@@ -27,11 +27,11 @@ Route::get('/dashboard', function () {
 // ----------------- MASTER -----------------
 // Gunakan prefix kosong agar URL jadi /kantor, /divisi, dsb
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('kantor', KantorController::class)->middleware(['role:admin']);
-    Route::resource('divisi', DivisiController::class)->middleware(['role:admin']);
-    Route::resource('roles', RoleController::class)->middleware(['role:admin']);
-    Route::resource('permissions', PermissionController::class)->middleware(['role:admin']);
-    Route::resource('users', UserController::class)->middleware(['role:admin']); // ✅ tambahin route user
+    Route::resource('kantor', KantorController::class);
+    Route::resource('divisi', DivisiController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+    Route::resource('users', UserController::class); // ✅ tambahin route user
 });
 
 

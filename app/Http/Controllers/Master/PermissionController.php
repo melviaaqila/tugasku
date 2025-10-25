@@ -9,6 +9,14 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        // ✅ GUNAKAN INI: Kunci berdasarkan kemampuan (Permission)
+        $this->middleware('permission:permission.view')->only('index');
+        $this->middleware('permission:permission.create')->only('store');
+        $this->middleware('permission:permission.edit')->only('update');
+        $this->middleware('permission:permission.delete')->only('destroy');
+    }
     public function index(Request $request)
     {
         $search = $request->input('search', '');

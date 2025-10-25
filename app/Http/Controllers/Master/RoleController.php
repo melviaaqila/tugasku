@@ -10,6 +10,14 @@ use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        // ✅ GUNAKAN INI: Kunci berdasarkan kemampuan (Permission)
+        $this->middleware('permission:role.view')->only('index');
+        $this->middleware('permission:role.create')->only('store');
+        $this->middleware('permission:role.edit')->only('update');
+        $this->middleware('permission:role.delete')->only('destroy');
+    }
     public function index(Request $request)
     {
         $search = $request->input('search', '');
@@ -52,7 +60,8 @@ class RoleController extends Controller
             $role->syncPermissions($validated['permissions']);
         }
 
-        return redirect()->back()->with('success', 'Role berhasil ditambahkan.');
+        // return redirect()->back()->with('success', 'Role berhasil ditambahkan.');
+        return redirect()->route('roles.index')->with('success', 'Role berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)

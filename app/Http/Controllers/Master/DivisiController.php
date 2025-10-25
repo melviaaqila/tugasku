@@ -10,6 +10,15 @@ use Inertia\Inertia;
 
 class DivisiController extends Controller
 {
+    public function __construct()
+    {
+
+        // ✅ GUNAKAN INI: Kunci berdasarkan kemampuan (Permission)
+        $this->middleware('permission:divisi.view')->only('index');
+        $this->middleware('permission:divisi.create')->only('store');
+        $this->middleware('permission:divisi.edit')->only('update');
+        $this->middleware('permission:divisi.delete')->only('destroy');
+    }
     public function index(Request $request)
     {
         $query = Divisi::query();
@@ -39,19 +48,19 @@ class DivisiController extends Controller
 
     public function store(Request $request)
     {
-      
+
         $data = $request->validate([
             'nama_divisi' => 'required|string|max:100',
         ]);
 
         Divisi::create($data);
 
-        return redirect()->route('divisi.index');
+        return redirect()->route('divisi.index')->with('success', 'Divisi telah ditambahkan.');
     }
 
     public function update(Request $request, $id)
     {
-        
+
         $divisi = Divisi::findOrFail($id);
 
         $data = $request->validate([
@@ -60,15 +69,15 @@ class DivisiController extends Controller
 
         $divisi->update($data);
 
-        return redirect()->route('divisi.index');
+        return redirect()->route('divisi.index')->with('success', 'Divisi telah diperbarui.');
     }
 
     public function destroy($id)
     {
-   
+
         $divisi = Divisi::findOrFail($id);
         $divisi->delete();
 
-        return redirect()->route('divisi.index');
+        return redirect()->route('divisi.index')->with('success', 'Divisi telah dihapus.');
     }
 }

@@ -50,9 +50,18 @@ const closeForm = () => {
 
 const submitForm = () => {
   if (form.id) {
-    form.put(route('roles.update', form.id), { onSuccess: closeForm });
+    // Perbaikan: Panggil closeForm DI DALAM onSuccess
+    form.put(route('roles.update', form.id), { 
+        onSuccess: () => {
+            setTimeout(closeForm, 100);// Tutup modal SETELAH Inertia memproses respons redirect
+        } 
+    });
   } else {
-    form.post(route('roles.store'), { onSuccess: closeForm });
+    form.post(route('roles.store'), { 
+        onSuccess: () => {
+            setTimeout(closeForm, 100);// Tutup modal SETELAH Inertia memproses respons redirect
+        }
+    });
   }
 };
 

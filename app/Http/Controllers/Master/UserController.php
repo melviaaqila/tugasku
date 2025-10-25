@@ -13,6 +13,14 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        // ✅ GUNAKAN INI: Kunci berdasarkan kemampuan (Permission)
+        $this->middleware('permission:user.view')->only('index');
+        $this->middleware('permission:user.create')->only('store');
+        $this->middleware('permission:user.edit')->only('update');
+        $this->middleware('permission:user.delete')->only('destroy');
+    }
     public function index(Request $request)
     {
         $search = $request->get('search', '');

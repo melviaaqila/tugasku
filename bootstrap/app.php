@@ -8,7 +8,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Session\TokenMismatchException; // ✅ IMPORT UNTUK 419
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Inertia\Inertia; // Tambahkan ini jika belum ada
+use Illuminate\Http\Request; // Tambahkan ini jika belum ada
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -33,6 +36,20 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        // 🚩 1. PENANGANAN TOKENMISMATCHEXCEPTION (419 Page Expired)
+        $exceptions->render(function (TokenMismatchException $e, Request $request) {
+            
+            // Jika request datang dari Inertia/AJAX, redirect kembali dengan pesan error
+            if ($request->wantsJson() || $request->inertia()) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Sesi Anda telah berakhir. Harap refresh halaman (Ctrl+R) dan coba lagi.');
+            }
+            
+            // Jika bukan Inertia/AJAX, biarkan penanganan default Laravel
+            return false;
+        });
+        
         // ✅ AuthorizationException (403 Forbidden)
         $exceptions->render(function (AuthorizationException $e, $request) {
             if ($request->expectsJson()) {
@@ -60,7 +77,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => '❌ Halaman tidak ditemukan.'
                 ], 404);
             }
-            return Inertia\Inertia::render('Errors/NotFound', [
+            return Inertia::render('Errors/NotFound', [
                 'message' => 'Halaman yang Anda cari tidak ditemukan.'
             ])->toResponse($request)->setStatusCode(404);
         });

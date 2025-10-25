@@ -13,6 +13,16 @@ class KantorController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+
+        // ✅ GUNAKAN INI: Kunci berdasarkan kemampuan (Permission)
+        $this->middleware('permission:kantor.view')->only('index');
+        $this->middleware('permission:kantor.create')->only('store');
+        $this->middleware('permission:kantor.edit')->only('update');
+        $this->middleware('permission:kantor.delete')->only('destroy');
+    }
+
     public function index(Request $request): Response
     {
         $search = $request->input('search', '');
