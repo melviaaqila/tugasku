@@ -8,6 +8,9 @@ use App\Http\Controllers\Master\DivisiController;
 use App\Http\Controllers\Master\KantorController;
 use App\Http\Controllers\Master\PermissionController;
 use App\Http\Controllers\Master\UserController; // ✅ tambahin ini
+use App\Http\Controllers\History\HistoryController;
+use App\Http\Controllers\Task\TaskController;
+use App\Http\Controllers\Master\RoutineTaskController;
 
 // Halaman utama
 // Route::get('/', function () {
@@ -20,9 +23,20 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+    
+    Route::resource('tugasku', TaskController::class)->except(['show'])->names('tugasku');
+
+    Route::prefix('tugasku')->group(function () {
+        Route::resource('routine', RoutineTaskController::class)
+            ->names('routine');
+
+        Route::get('history', [HistoryController::class, 'index'])->name('history.index');
+    });
+});
 
 // ----------------- MASTER -----------------
 // Gunakan prefix kosong agar URL jadi /kantor, /divisi, dsb

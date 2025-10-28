@@ -15,12 +15,24 @@ class RoleHasPermissionSeeder extends Seeder
     {
         $permissions = [];
 
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 29; $i++) {
             $permissions[] = [
                 'permission_id' => $i,
                 'role_id' => 1,
             ];
         }
+
+        for ($i = 21; $i <= 24; $i++) {
+            $permissions[] = [
+                'permission_id' => $i,
+                'role_id' => 2,
+            ];
+        }
+
+        $permissions[] = [
+            'permission_id' => 29,
+            'role_id' => 2,
+        ];
 
         DB::table('role_has_permissions')->insert($permissions);
     }

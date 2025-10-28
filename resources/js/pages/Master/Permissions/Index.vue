@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { Head, useForm, router, usePage } from '@inertiajs/vue3';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { Card, CardHeader, CardTitle, CardContent } from '@/Components/ui/card';
-import { Button } from '@/Components/ui/button';
-import { Input } from '@/Components/ui/input';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { LoaderCircle, Plus, Edit, Trash } from 'lucide-vue-next';
 
 const page = usePage<{

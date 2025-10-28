@@ -11,6 +11,7 @@ use Database\Seeders\RoleSeeder;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\ModelHasRoleSeeder;
 use Database\Seeders\RoleHasPermissionSeeder;
+use Database\Seeders\RoutineTaskSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -45,5 +46,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(ModelHasRoleSeeder::class);
         $this->call(RoleHasPermissionSeeder::class);
+        $this->call(RoutineTaskSeeder::class);
     }
 }

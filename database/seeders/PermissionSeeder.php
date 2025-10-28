@@ -39,6 +39,21 @@ class PermissionSeeder extends Seeder
             'permission.create',
             'permission.edit',
             'permission.delete',
+
+            // Task permissions
+            'tugasku.view',
+            'tugasku.create',
+            'tugasku.edit',
+            'tugasku.delete',
+
+            // Routine Task permissions
+            'tugasrutin.view',
+            'tugasrutin.create',
+            'tugasrutin.edit',
+            'tugasrutin.delete',
+
+            // History permissions
+            'history.view',
         ];
 
         foreach ($permissions as $permission) {

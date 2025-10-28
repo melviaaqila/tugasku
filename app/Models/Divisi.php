@@ -18,4 +18,9 @@ class Divisi extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function routineTasks(): HasMany
+    {
+        return $this->hasMany(RoutineTask::class);
+    }
 }

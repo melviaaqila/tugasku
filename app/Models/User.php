@@ -59,4 +59,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Divisi::class);
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(History::class);
+    }
 }
