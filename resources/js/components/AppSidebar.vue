@@ -118,6 +118,18 @@ const filteredMasterNavItems = computed(() => {
 const canViewMasterMenu = computed(() => {
     return filteredMasterNavItems.value.length > 0;
 });
+
+const filteredTaskNavItems = computed(() => {
+    if (!user || !user.permissions || !Array.isArray(user.permissions)) {
+        return [];
+    }
+
+    return taskNavItems.filter((item) => user.permissions.includes(item.permissionKey));
+});
+
+const canViewTaskMenu = computed(() => {
+    return filteredTaskNavItems.value.length > 0;
+});
 </script>
 
 <template>
@@ -137,7 +149,7 @@ const canViewMasterMenu = computed(() => {
         <SidebarContent>
             <NavMain :items="mainNavItems" />
 
-            <Collapsible v-if="canViewMasterMenu" defaultOpen class="group/collapsible">
+            <Collapsible v-if="canViewTaskMenu" defaultOpen class="group/collapsible">
                 <SidebarGroup>
                     <SidebarGroupLabel asChild>
                         <CollapsibleTrigger class="flex items-center gap-2">
@@ -147,7 +159,7 @@ const canViewMasterMenu = computed(() => {
                         </CollapsibleTrigger>
                     </SidebarGroupLabel>
                     <CollapsibleContent>
-                        <NavMain :items="taskNavItems" />
+                        <NavMain :items="filteredTaskNavItems" />
                     </CollapsibleContent>
                 </SidebarGroup>
             </Collapsible>
